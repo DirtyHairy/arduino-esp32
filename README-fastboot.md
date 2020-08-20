@@ -1,5 +1,9 @@
 This branch contains a ESP-IDF v3.3 build that has been optimized for boot performance.
 
+**IMPORTANT:** I created this for my own projects and have not done any  testing
+beyond that, nor can I provide support. If this causes your project to blow up on you:
+bad luck, you are on your own.
+
 # Speedup
 
 I haven't done any accurate measurements, but on my WROVER-B module, bootup time goes
@@ -19,7 +23,18 @@ The code changes can be found in `esp-idf-fastboot.diff`.
 
 Skipping verification of flash and SPIRAM will cause the ESP to boot even if the flashed
 image or the external RAM are faulty. Disabling heap poisoning will disable the detection
-of heap corruption at runtime.
+of heap corruption at runtime. The Arduino framework is forked and built from the master
+branch and not from a stable release.
+
+# Platform.io
+
+You can use this version of the Arduino framework in Platform.io by adding this to your
+`platformio.ini`:
+
+```
+platform_packages =
+    framework-arduinoespressif32 @ https://github.com/DirtyHairy/arduino-esp32#master-fastboot
+```
 
 # Credits
 
