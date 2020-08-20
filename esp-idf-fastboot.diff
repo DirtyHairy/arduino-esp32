@@ -1,0 +1,52 @@
+diff --git a/components/bootloader_support/src/esp_image_format.c b/components/bootloader_support/src/esp_image_format.c
+index 7f5595251..3dbefb996 100644
+--- a/components/bootloader_support/src/esp_image_format.c
++++ b/components/bootloader_support/src/esp_image_format.c
+@@ -125,7 +125,7 @@ static esp_err_t image_load(esp_image_load_mode_t mode, const esp_partition_pos_
+     if (err != ESP_OK) {
+         goto err;
+     }
+-
++#if 0
+     // Calculate SHA-256 of image if secure boot is on, or if image has a hash appended
+ #ifdef SECURE_BOOT_CHECK_SIGNATURE
+     if (1) {
+@@ -155,7 +155,7 @@ static esp_err_t image_load(esp_image_load_mode_t mode, const esp_partition_pos_
+         FAIL_LOAD("image at 0x%x segment count %d exceeds max %d",
+                   data->start_addr, data->image.segment_count, ESP_IMAGE_MAX_SEGMENTS);
+     }
+-
++#endif
+     uint32_t next_addr = data->start_addr + sizeof(esp_image_header_t);
+     for(int i = 0; i < data->image.segment_count; i++) {
+         esp_image_segment_header_t *header = &data->segments[i];
+@@ -169,6 +169,7 @@ static esp_err_t image_load(esp_image_load_mode_t mode, const esp_partition_pos_
+         next_addr += header->data_len;
+     }
+ 
++#if 0
+     // Segments all loaded, verify length
+     uint32_t end_addr = next_addr;
+     if (end_addr < data->start_addr) {
+@@ -221,6 +222,8 @@ static esp_err_t image_load(esp_image_load_mode_t mode, const esp_partition_pos_
+     }
+ 
+     sha_handle = NULL;
++#endif
++
+     if (err != ESP_OK) {
+         goto err;
+     }
+diff --git a/components/esp32/spiram.c b/components/esp32/spiram.c
+index 7dacfa050..f8db18060 100644
+--- a/components/esp32/spiram.c
++++ b/components/esp32/spiram.c
+@@ -89,6 +89,8 @@ static int spiram_size_usable_for_malloc()
+ */
+ bool esp_spiram_test()
+ {
++    return true;
++
+     volatile int *spiram=(volatile int*)SOC_EXTRAM_DATA_LOW;
+     size_t p;
+     size_t s=spiram_size_usable_for_malloc();
