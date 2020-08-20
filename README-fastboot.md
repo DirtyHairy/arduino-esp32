@@ -40,4 +40,4 @@ platform_packages =
 
 Those changes were suggested by the Reddit user LinkeSeitentasche in his excellent
 [guide](https://www.reddit.com/r/esp32/comments/fnj51a/a_guide_to_improving_esp32_boot_speed/)
-on reducing ESP32 bootup speed.
+on improving ESP32 bootup speed.
